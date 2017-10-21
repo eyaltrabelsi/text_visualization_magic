@@ -1,6 +1,7 @@
-import shortuuid
-import webbrowser
 import os
+import webbrowser
+
+import shortuuid
 
 sentree_format = """
                     <html>
@@ -26,20 +27,15 @@ sentree_format = """
                     """
 
 
-
 def text_visualization(line, text_path=''):
     temporary_output = '{}.html'.format(shortuuid.uuid())
 
     with open(temporary_output, 'w+') as f_output:
-        f_output.write(sentree_format.format(file_path= text_path))
-    
+        f_output.write(sentree_format.format(file_path=text_path))
+
     webbrowser.get('firefox').open('file:///{}/{}'.format(os.getcwd(), temporary_output))
     os.remove(temporary_output)
 
 
-
 def load_ipython_extension(ipython):
-    ipython.register_magic_function(postgresql_syntax_checker, 'cell', 'text_visualization')
-
-
-
+    ipython.register_magic_function(text_visualization, 'cell', 'text_visualization')
